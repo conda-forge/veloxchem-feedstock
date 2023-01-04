@@ -31,7 +31,7 @@ requirements:
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]
     - ninja
-    - {{ mpi }} # [mpi == 'openmpi' and build_platform != target_platform]
+    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
   host:
     - pybind11 >=2.6,<3.0
     - python
