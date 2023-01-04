@@ -17,7 +17,6 @@ build:
   number: 1
   script_env:
     - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
-  binary_relocation: true
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -32,7 +31,6 @@ requirements:
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]
     - ninja
-    - pkg-config  # [unix]
   host:
     - pybind11 >=2.6,<3.0
     - python
