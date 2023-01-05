@@ -15,6 +15,7 @@ source:
 
 build:
   number: 1
+  binary_relocation: true
   script_env:
     - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
   entry_points:
