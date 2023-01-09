@@ -15,7 +15,6 @@ source:
 
 build:
   number: 1
-  binary_relocation: true
   script_env:
     - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
   entry_points:
@@ -23,16 +22,16 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
-    - pybind11                               # [build_platform != target_platform]
+    #- python  # [build_platform != target_platform]
+    #- cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    #- numpy  # [build_platform != target_platform]
+    #- pybind11  # [build_platform != target_platform]
+    #- {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
     - cmake >=3.18
     - {{ compiler('cxx') }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]
     - ninja
-    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
   host:
     - pybind11
     - python
