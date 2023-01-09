@@ -9,6 +9,8 @@ CXXFLAGS="${CXXFLAGS//-mssse3}"
 
 export XTBHOME="$CONDA_PREFIX"
 
+export CXX=$(basename ${CXX})
+
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   # This is only used by open-mpi's mpicc
   # ignored in other cases
