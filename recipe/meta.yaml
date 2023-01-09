@@ -37,7 +37,7 @@ requirements:
     - python
     - pybind11-abi
     - {{ mpi }}
-    - mpi4py >=3.0
+    - mpi4py
     - libcblas
     - liblapacke
     - numpy
