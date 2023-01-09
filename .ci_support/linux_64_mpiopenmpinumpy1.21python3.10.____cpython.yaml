@@ -15,9 +15,11 @@ libcblas:
 liblapacke:
 - 3.9 *netlib
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
+numpy:
+- '1.21'
 openmpi:
 - '4'
 pin_run_as_build:
@@ -30,3 +32,6 @@ python:
 - 3.10.* *_cpython
 target_platform:
 - linux-64
+zip_keys:
+- - python
+  - numpy
