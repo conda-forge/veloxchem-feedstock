@@ -9,12 +9,6 @@ CXXFLAGS="${CXXFLAGS//-mssse3}"
 
 export XTBHOME="$CONDA_PREFIX"
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-  export _CXX="${CXX_FOR_BUILD}"
-else
-  export _CXX="${CXX}"
-fi
-
 # configure!
 cmake "${CMAKE_ARGS}" \
     -S"${SRC_DIR}" \
@@ -22,7 +16,7 @@ cmake "${CMAKE_ARGS}" \
     -GNinja \
     -DCMAKE_BUILD_TYPE:STRING=Release \
     -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
-    -DCMAKE_CXX_COMPILER:STRING="${_CXX}" \
+    -DCMAKE_CXX_COMPILER:STRING="${CXX}" \
     -DENABLE_ARCH_FLAGS:BOOL=OFF \
     -DVLX_LA_VENDOR:STRING="Generic" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
