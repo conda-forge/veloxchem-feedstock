@@ -20,7 +20,9 @@ cmake "${CMAKE_ARGS}" \
     -DENABLE_ARCH_FLAGS:BOOL=OFF \
     -DVLX_LA_VENDOR:STRING="Generic" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
-    -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem"
+    -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem" \
+    -DMPI_CXX_SKIP_MPICXX:BOOL=ON \
+    -DMPI_CXX_COMPILER:STRING=mpicxx
 
 # build!
 cmake --build build --parallel "${CPU_COUNT}" -- -v -d stats
