@@ -7,6 +7,7 @@ CXXFLAGS="${CXXFLAGS//-mtune=haswell}"
 CXXFLAGS="${CXXFLAGS//-march=core2}"
 CXXFLAGS="${CXXFLAGS//-mssse3}"
 
+# only used when configuring to detect location of xTB header files
 export XTBHOME="$CONDA_PREFIX"
 
 # configure!
@@ -21,7 +22,10 @@ cmake "${CMAKE_ARGS}" \
     -DVLX_LA_VENDOR:STRING="Generic" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
     -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem" \
-    -DMPI_CXX_SKIP_MPICXX:BOOL=ON
+    -DMPI_CXX_SKIP_MPICXX:BOOL=ON \
+    -DBUILD_SHARED_LIBS:BOOL=ON \
+    -DCMAKE_FIND_FRAMEWORK:STRING=NEVER \
+    -DCMAKE_FIND_APPBUNDLE:STRING=NEVER
 
 # build!
 cmake --build build --parallel "${CPU_COUNT}" -- -v -d stats
