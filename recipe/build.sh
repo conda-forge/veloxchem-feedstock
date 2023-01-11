@@ -37,6 +37,11 @@ cmake "${CMAKE_ARGS}" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
     -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem" \
     -DMPI_CXX_SKIP_MPICXX:BOOL=ON
+   
+echo "FLOOF"
+[ -f build/CMakeFiles/CMakeOutput.log ] && cat build/CMakeFiles/CMakeOutput.log
+echo "LOLOL"
+[ -f build/CMakeFiles/CMakeError.log ] && cat build/CMakeFiles/CMakeError.log
 
 # build!
 cmake --build build --parallel "${CPU_COUNT}" -- -v -d stats
