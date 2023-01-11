@@ -36,8 +36,7 @@ cmake "${CMAKE_ARGS}" \
     -DVLX_LA_VENDOR:STRING="Generic" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
     -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem" \
-    -DMPI_CXX_SKIP_MPICXX:BOOL=ON \
-    -DMPI_HOME:PATH="${CONDA_PREFIX}"
+    -DMPI_CXX_SKIP_MPICXX:BOOL=ON
 
 # build!
 cmake --build build --parallel "${CPU_COUNT}" -- -v -d stats
