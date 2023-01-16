@@ -1,15 +1,26 @@
 diff --git a/src/xtb/CMakeLists.txt b/src/xtb/CMakeLists.txt
-index 636b8970..9fc2d421 100644
+index 636b8970..bdc61af2 100644
 --- a/src/xtb/CMakeLists.txt
 +++ b/src/xtb/CMakeLists.txt
-@@ -29,6 +29,10 @@ if(DEFINED ENV{XTBHOME})
-       "-DINCLUDE_DIRECTORIES:STRING=${_xtb_include_dirs}"
+@@ -19,17 +19,16 @@ if(DEFINED ENV{XTBHOME})
+       lib
      )
  
-+  if(CMAKE_CROSSCOMPILING)
-+    set(_xtb_RUNS "0" CACHE STRING "Result from try_run" FORCE)
-+  endif()
-+
-   if(_xtb_COMPILES AND (_xtb_RUNS EQUAL 0))
+-  try_run(_xtb_RUNS _xtb_COMPILES
+-    ${CMAKE_CURRENT_BINARY_DIR}/xtb_discovery
++  try_compile(_xtb_COMPILES
+     SOURCES
+       "${PROJECT_SOURCE_DIR}/cmake/custom/xtb_discovery.cpp"
++    COMPILE_DEFINITIONS
++      "-DINCLUDE_DIRECTORIES:STRING=${_xtb_include_dirs}"
+     LINK_LIBRARIES
+       "${_xtb_libraries}"
+-    ARGS
+-      "-DINCLUDE_DIRECTORIES:STRING=${_xtb_include_dirs}"
+     )
+ 
+-  if(_xtb_COMPILES AND (_xtb_RUNS EQUAL 0))
++  if(_xtb_COMPILES)
      message(STATUS "Found xTB: ${_xtb_libraries}")
  
+     target_compile_definitions(vlxobjs
