@@ -12,6 +12,7 @@ source:
   sha256: {{ sha256 }}
   patches:
     - patches/geometric-as-posix.patch
+    - patches/xtb-check.patch
 
 build:
   number: 1
