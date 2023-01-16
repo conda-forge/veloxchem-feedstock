@@ -1,0 +1,15 @@
+diff --git a/src/xtb/CMakeLists.txt b/src/xtb/CMakeLists.txt
+index 636b8970..9fc2d421 100644
+--- a/src/xtb/CMakeLists.txt
++++ b/src/xtb/CMakeLists.txt
+@@ -29,6 +29,10 @@ if(DEFINED ENV{XTBHOME})
+       "-DINCLUDE_DIRECTORIES:STRING=${_xtb_include_dirs}"
+     )
+ 
++  if(CMAKE_CROSSCOMPILING)
++    set(_xtb_RUNS "0" CACHE STRING "Result from try_run" FORCE)
++  endif()
++
+   if(_xtb_COMPILES AND (_xtb_RUNS EQUAL 0))
+     message(STATUS "Found xTB: ${_xtb_libraries}")
+ 
