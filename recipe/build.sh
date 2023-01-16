@@ -19,7 +19,7 @@ fi
 export XTBHOME="$CONDA_PREFIX"
 
 # configure!
-cmake "${CMAKE_ARGS}" \
+cmake ${CMAKE_ARGS} \
     -S"${SRC_DIR}" \
     -Bbuild \
     -GNinja \
