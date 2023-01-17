@@ -11,8 +11,10 @@ export CXX=$(basename ${CXX})
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
-  export CC=mpicc
-  export CXX=mpicxx
+  #export CC=mpicc
+  #export CXX=mpicxx
+  export OMPI_CC="$CC"
+  export OMPI_CXX="$CXX"
 fi
 
 # only used when configuring to detect location of xTB header files
