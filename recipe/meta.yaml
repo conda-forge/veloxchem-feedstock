@@ -15,7 +15,7 @@ source:
     - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
-  number: 1
+  number: 2
   script_env:
     - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
   entry_points:
