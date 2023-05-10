@@ -7,13 +7,13 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '14'
+- '15'
 libcblas:
 - 3.9 *netlib
 liblapacke:
 - 3.9 *netlib
 llvm_openmp:
-- '14'
+- '15'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
@@ -21,7 +21,7 @@ mpi:
 mpich:
 - '4'
 numpy:
-- '1.20'
+- '1.21'
 openmpi:
 - '4'
 pin_run_as_build:

@@ -1,25 +1,27 @@
-cdt_name:
-- cos6
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge veloxchem_rc
 cxx_compiler:
-- gxx
+- clangxx
 cxx_compiler_version:
-- '11'
-docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- '15'
 libcblas:
 - 3.9 *netlib
 liblapacke:
 - 3.9 *netlib
+llvm_openmp:
+- '15'
+macos_machine:
+- arm64-apple-darwin20.0.0
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 numpy:
-- '1.20'
+- '1.21'
 openmpi:
 - '4'
 pin_run_as_build:
@@ -31,7 +33,7 @@ pybind11_abi:
 python:
 - 3.8.* *_cpython
 target_platform:
-- linux-64
+- osx-arm64
 zip_keys:
 - - python
   - numpy
