@@ -63,9 +63,9 @@ test:
     - scipy
     - openmm
     - matplotlib
-    - rdkit
+    - rdkit  # [not aarch64 and not ppc64le]
     - k3d
-    - mdanalysis
+    - mdanalysis  # [not aarch64 and not ppc64le]
   imports:
     - veloxchem
   commands:
