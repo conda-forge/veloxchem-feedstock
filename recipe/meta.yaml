@@ -95,8 +95,7 @@ test:
 about:
   home: https://veloxchem.org
   dev_url: https://gitlab.com/veloxchem/veloxchem
-  doc_url: https://veloxchem.org/docs/intro.html
-  doc_source_url: https://gitlab.com/veloxchem/veloxchem/-/blob/master/docs/index.rst
+  doc_url: https://veloxchem.org
   license: LGPL-3.0-or-later
   license_url: https://opensource.org/licenses/LGPL-3.0
   license_file:
