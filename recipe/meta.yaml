@@ -15,7 +15,7 @@ source:
     - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
-  number: 3
+  number: 4
   script_env:
     - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
   entry_points:
@@ -66,6 +66,7 @@ test:
     - rdkit  # [not aarch64 and not ppc64le]
     - k3d
     - mdanalysis  # [not aarch64 and not ppc64le]
+    - m2w64-binutils
   imports:
     - veloxchem
   commands:
@@ -76,7 +77,7 @@ test:
     # Inspect linkage
     - ldd -v $SP_DIR/veloxchem/veloxchemlib*.so  # [linux]
     - otool -L $SP_DIR/veloxchem/veloxchemlib*.so  # [osx]
-    #- objdump.exe -p %SP_DIR%\\veloxchem\\veloxchemlib.*.pyd | findstr /i "dll"  # [win]
+    - objdump.exe -p %SP_DIR%\\veloxchem\\veloxchemlib.*.pyd | findstr /i "dll"  # [win]
     # run integration tests
     - export OMPI_ALLOW_RUN_AS_ROOT=1  # [mpi == 'openmpi']
     - export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1  # [mpi == 'openmpi']
