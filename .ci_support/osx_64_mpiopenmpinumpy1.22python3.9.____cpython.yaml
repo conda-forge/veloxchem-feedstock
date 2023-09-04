@@ -17,11 +17,11 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
 numpy:
-- '1.21'
+- '1.22'
 openmpi:
 - '4'
 pin_run_as_build:
