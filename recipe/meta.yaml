@@ -16,8 +16,6 @@ source:
 
 build:
   number: 8
-  script_env:
-    - OMPI_MCA_plm_rsh_agent=  # [mpi == 'openmpi' and linux]
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -76,7 +74,7 @@ test:
     - vlx --version
     - vlx --help
     # Inspect linkage
-    - ldd -v $SP_DIR/veloxchem/veloxchemlib*.so  # [linux]
+    - ldd -v $SP_DIR/veloxchem/veloxchemlib*.so  # [linux and build_platform == target_platform]
     - otool -L $SP_DIR/veloxchem/veloxchemlib*.so  # [osx]
     - objdump.exe -p %SP_DIR%\\veloxchem\\veloxchemlib.*.pyd | findstr /i "dll"  # [win]
     # run integration tests
