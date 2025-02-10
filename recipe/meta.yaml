@@ -15,7 +15,7 @@ source:
     - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
-  number: 8
+  number: 9
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -49,7 +49,6 @@ requirements:
     - h5py
     - python
     - {{ pin_compatible('mpi4py') }}
-    - {{ pin_compatible('numpy') }}
   run_constrained:
     - libopenblas * openmp*  # [unix]
 
