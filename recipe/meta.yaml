@@ -15,7 +15,7 @@ source:
     - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
-  number: 8
+  number: 9
   entry_points:
     - vlx=veloxchem.main:main
 
