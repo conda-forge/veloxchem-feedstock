@@ -5,19 +5,19 @@ channel_sources:
 channel_targets:
 - conda-forge veloxchem_rc
 cxx_compiler:
-- vs2019
+- vs2022
 libcblas:
 - 3.9.* *netlib
 liblapacke:
 - 3.9.* *netlib
 mkl:
-- '2024'
+- '2025'
 mpi:
 - msmpi
 mpich:
 - '4'
 numpy:
-- '2.0'
+- '2'
 openmpi:
 - '5'
 pin_run_as_build:
@@ -30,6 +30,3 @@ python:
 - 3.12.* *_cpython
 target_platform:
 - win-64
-zip_keys:
-- - python
-  - numpy
