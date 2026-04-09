@@ -5,7 +5,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://gitlab.com/veloxchem/veloxchem/-/archive/v{{ version }}-{{ pre }}/veloxchem-v{{ version }}-{{ pre }}.tar.gz
