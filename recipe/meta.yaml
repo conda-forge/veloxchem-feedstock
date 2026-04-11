@@ -26,6 +26,7 @@ requirements:
     - pybind11  # [build_platform != target_platform]
     - cmake >=3.18
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]    
     - vs2022_win-64  # [win]
@@ -38,7 +39,7 @@ requirements:
     - eigen
     - libboost-headers
     - libxc-c >=7.0.0     # [unix]
-    - libxc-c =7.0.0=*_3  # [win]
+    - libxc-c 7.0.0 *_3  # [win]
   run:
     - psutil
     - geometric
@@ -47,7 +48,7 @@ requirements:
     - mpi4py
     - numpy
   run_constrained:
-    - xtb =6.7.1=*_3  # [win]
+    - xtb 6.7.1 *_3  # [win]
 
 test:
   requires:
@@ -55,7 +56,7 @@ test:
     - libblas
     - dftd4-python
     - xtb-python
-    - xtb =6.7.1=*_3  # [win]
+    - xtb 6.7.1 *_3  # [win]
     - pip
     - scipy
     - openmm
@@ -90,7 +91,7 @@ test:
     - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
     # run integration tests on windows
     - set OMP_NUM_THREADS=%CPU_COUNT%  # [win]
-    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming" # [win]
+    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [win]
     - set MPI_NUM_PROCS=2  # [win]
     - set /A OMP_NUM_THREADS="%CPU_COUNT%/%MPI_NUM_PROCS%"  # [win]
     - mpiexec -n %MPI_NUM_PROCS% %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [win]
