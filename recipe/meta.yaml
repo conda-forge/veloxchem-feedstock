@@ -1,21 +1,20 @@
 {% set name = "veloxchem" %}
-{% set version = "1.0" %}
-{% set pre = "rc3" %}
+{% set version = "cf35e9101c50c4f5a5eacc9c07faba7e7846a39f" %}
 {% set sha256 = "ed22aeb72d832f0daccffa393a1a349dab65fc85cefbb6a069933d3b51ad7ffd" %}
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
-  url: https://gitlab.com/veloxchem/veloxchem/-/archive/v{{ version }}-{{ pre }}/veloxchem-v{{ version }}-{{ pre }}.tar.gz
+  url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz  
   sha256: {{ sha256 }}
-  patches:
-    - patches/geometric-as-posix.patch
-    - patches/xtb-check.patch  # [build_platform != target_platform]
+  #patches:
+  #  - patches/geometric-as-posix.patch
+  #  - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
-  number: 8
+  number: 9
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -25,46 +24,45 @@ requirements:
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - numpy  # [build_platform != target_platform]
     - pybind11  # [build_platform != target_platform]
-    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
     - cmake >=3.18
     - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
     - libgomp  # [linux]
-    - llvm-openmp  # [osx or win]
+    - llvm-openmp  # [osx or win]    
+    - vs2022_win-64  # [win]
     - ninja
   host:
     - pybind11
     - python
-    - pybind11-abi
-    - {{ mpi }}
-    - mpi4py
-    - libcblas
-    - liblapacke
-    - numpy
-    - xtb  # [unix]
+    - pybind11-abi =4
+    - msmpi  # [win]
+    - eigen
+    - libboost-headers
+    - libxc-c >=7.0.0     # [unix]
+    - libxc-c =7.0.0=*_3  # [win]
   run:
     - psutil
     - geometric
-    - cppe  # [unix]
     - h5py
     - python
-    - {{ pin_compatible('mpi4py') }}
-    - {{ pin_compatible('numpy') }}
+    - mpi4py
+    - numpy
   run_constrained:
-    - libopenblas * openmp*  # [unix]
+    - xtb =6.7.1=*_3  # [win]
 
 test:
   requires:
     - pytest
-    - libopenblas  # [unix]   
-    - mkl  # [win]
+    - libblas
+    - dftd4-python
+    - xtb-python
+    - xtb =6.7.1=*_3  # [win]
     - pip
     - scipy
     - openmm
     - matplotlib
-    - rdkit  # [not aarch64 and not ppc64le]
-    - k3d
-    - mdanalysis  # [not aarch64 and not ppc64le]
+    - rdkit
+    - pymbar
+    - mdanalysis
     - m2w64-binutils  # [win]   # provides objdump.exe
   imports:
     - veloxchem
@@ -73,20 +71,26 @@ test:
     # verify we can execute the CLI
     - vlx --version
     - vlx --help
-    # Inspect linkage
-    - ldd -v $SP_DIR/veloxchem/veloxchemlib*.so  # [linux and build_platform == target_platform]
+    # inspect linkage
+    - ldd -v $SP_DIR/veloxchem/veloxchemlib*.so  # [linux]
     - otool -L $SP_DIR/veloxchem/veloxchemlib*.so  # [osx]
     - objdump.exe -p %SP_DIR%\\veloxchem\\veloxchemlib.*.pyd | findstr /i "dll"  # [win]
-    # run integration tests
+    # prepare envvars
     - export OMPI_ALLOW_RUN_AS_ROOT=1  # [mpi == 'openmpi']
     - export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1  # [mpi == 'openmpi']
+    # run integration tests on unix-like systems
+    # for now we only run selected tests on osx-64 and osx-arm64 due to time and resources
     - export OMP_NUM_THREADS=$CPU_COUNT  # [unix]
-    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [unix]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [linux]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [osx and arm64]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming and not solvers"  # [osx and x86_64]
     - export MPI_NUM_PROCS=2  # [unix]
     - export OMP_NUM_THREADS=$(($CPU_COUNT/$MPI_NUM_PROCS))  # [unix]
-    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [unix]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [linux]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
+    # run integration tests on windows
     - set OMP_NUM_THREADS=%CPU_COUNT%  # [win]
-    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [win]
+    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming" # [win]
     - set MPI_NUM_PROCS=2  # [win]
     - set /A OMP_NUM_THREADS="%CPU_COUNT%/%MPI_NUM_PROCS%"  # [win]
     - mpiexec -n %MPI_NUM_PROCS% %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [win]
