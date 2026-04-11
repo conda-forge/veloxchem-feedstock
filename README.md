@@ -5,11 +5,11 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/veloxchem-feeds
 
 Home: https://veloxchem.org
 
-Package license: [LGPL-3.0-or-later](https://opensource.org/licenses/LGPL-3.0)
+Package license: [BSD-3-Clause](https://opensource.org/license/BSD-3-Clause)
 
 Summary: A Python-based, open source quantum chemistry program package
 
-Development: https://gitlab.com/veloxchem/veloxchem
+Development: https://github.com/VeloxChem/VeloxChem
 
 Documentation: https://veloxchem.org
 
