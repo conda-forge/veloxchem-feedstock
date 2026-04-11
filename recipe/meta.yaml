@@ -1,17 +1,19 @@
 {% set name = "veloxchem" %}
-{% set version = "de8f866ae8843f651c7971564238d93d9391e01c" %}
-{% set sha256 = "50ed791447ea6a6a49ef99792ed85f2bae90ca8d819ee1ed305c3898145cd7a8" %}
+{% set gitsha = "48cdb961adfe8a0789487b6a3ae766fa6a8c62be" %}
+{% set sha256 = "dc2a720d5de4f963bca5ef57f542b60ba1d2a54e84f2b0f5f52edbd1701ef8be" %}
+{% set version = "1.0" %}
+{% set pre = "rc4" %}
 
 package:
   name: {{ name|lower }}
   version: "{{ version }}"
 
 source:
-  url: https://github.com/VeloxChem/VeloxChem/archive/{{ version }}.tar.gz  
+  url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz  
   sha256: {{ sha256 }}
 
 build:
-  number: 9
+  number: 0
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -32,10 +34,9 @@ requirements:
     - pybind11
     - python
     - pybind11-abi =4
-    - msmpi  # [win]
     - eigen
     - libboost-headers
-    - libxc-c >=7.0.0     # [unix]
+    - libxc-c >=7.0.0  # [unix]
     - libxc-c 7.0.0 *_3  # [win]
   run:
     - psutil
@@ -98,7 +99,7 @@ about:
   home: https://veloxchem.org
   dev_url: https://github.com/VeloxChem/VeloxChem
   doc_url: https://veloxchem.org
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_url: https://opensource.org/license/BSD-3-Clause
   license_file:
     - LICENSE
