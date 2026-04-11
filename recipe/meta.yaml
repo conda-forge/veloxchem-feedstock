@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/VeloxChem/VeloxChem/archive/{{ version }}.tar.gz  
-  sha256: {{ sha256 }}
+  #sha256: {{ sha256 }}
   #patches:
   #  - patches/geometric-as-posix.patch
   #  - patches/xtb-check.patch  # [build_platform != target_platform]
@@ -20,13 +20,13 @@ build:
 
 requirements:
   build:
-    - python  # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
-    - numpy  # [build_platform != target_platform]
-    - pybind11  # [build_platform != target_platform]
+    #- python  # [build_platform != target_platform]
+    #- cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    #- numpy  # [build_platform != target_platform]
+    #- pybind11  # [build_platform != target_platform]
     - cmake >=3.18
     - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
+    #- {{ stdlib('c') }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]    
     - vs2022_win-64  # [win]
