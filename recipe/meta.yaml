@@ -9,9 +9,6 @@ package:
 source:
   url: https://github.com/VeloxChem/VeloxChem/archive/{{ version }}.tar.gz  
   sha256: {{ sha256 }}
-  #patches:
-  #  - patches/geometric-as-posix.patch
-  #  - patches/xtb-check.patch  # [build_platform != target_platform]
 
 build:
   number: 9
@@ -99,14 +96,14 @@ test:
 
 about:
   home: https://veloxchem.org
-  dev_url: https://gitlab.com/veloxchem/veloxchem
+  dev_url: https://github.com/VeloxChem/VeloxChem
   doc_url: https://veloxchem.org
-  license: LGPL-3.0-or-later
-  license_url: https://opensource.org/licenses/LGPL-3.0
+  license: BSD 3-Clause
+  license_url: https://opensource.org/license/BSD-3-Clause
   license_file:
-    - COPYING
-    - COPYING.LESSER
-  license_family: LGPL
+    - LICENSE
+    - LICENSE-THIRD-PARTY
+  license_family: BSD
   summary: A Python-based, open source quantum chemistry program package
 
 extra:
