@@ -7,7 +7,7 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz  
+  url: https://github.com/VeloxChem/VeloxChem/archive/{{ version }}.tar.gz  
   sha256: {{ sha256 }}
   #patches:
   #  - patches/geometric-as-posix.patch
