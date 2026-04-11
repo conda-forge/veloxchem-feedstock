@@ -2,23 +2,10 @@
 set -ex
 
 # clean up unwanted compiler flags
-CXXFLAGS="${CXXFLAGS//-march=nocona}"
-CXXFLAGS="${CXXFLAGS//-mtune=haswell}"
-CXXFLAGS="${CXXFLAGS//-march=core2}"
-CXXFLAGS="${CXXFLAGS//-mssse3}"
-
-export CXX=$(basename ${CXX})
-
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
-  export OPAL_PREFIX="$PREFIX"
-  #export CC=mpicc
-  #export CXX=mpicxx
-  export OMPI_CC="$CC"
-  export OMPI_CXX="$CXX"
-fi
-
-# only used when configuring to detect location of xTB header files
-export XTBHOME="$CONDA_PREFIX"
+#CXXFLAGS="${CXXFLAGS//-march=nocona}"
+#CXXFLAGS="${CXXFLAGS//-mtune=haswell}"
+#CXXFLAGS="${CXXFLAGS//-march=core2}"
+#CXXFLAGS="${CXXFLAGS//-mssse3}"
 
 # configure!
 cmake ${CMAKE_ARGS} \
@@ -32,10 +19,8 @@ cmake ${CMAKE_ARGS} \
     -DCMAKE_FIND_FRAMEWORK:STRING=NEVER \
     -DCMAKE_FIND_APPBUNDLE:STRING=NEVER \
     -DENABLE_ARCH_FLAGS:BOOL=OFF \
-    -DVLX_LA_VENDOR:STRING="Generic" \
     -DPython_EXECUTABLE:STRING="${PYTHON}" \
-    -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem" \
-    -DMPI_CXX_SKIP_MPICXX:BOOL=ON
+    -DPYMOD_INSTALL_FULLDIR:PATH="${SP_DIR#$PREFIX/}/veloxchem"
 
 # build!
 cmake --build build --parallel "${CPU_COUNT}" -- -v -d stats

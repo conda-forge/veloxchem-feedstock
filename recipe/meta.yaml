@@ -1,6 +1,6 @@
 {% set name = "veloxchem" %}
-{% set version = "cf35e9101c50c4f5a5eacc9c07faba7e7846a39f" %}
-{% set sha256 = "ed22aeb72d832f0daccffa393a1a349dab65fc85cefbb6a069933d3b51ad7ffd" %}
+{% set version = "de8f866ae8843f651c7971564238d93d9391e01c" %}
+{% set sha256 = "50ed791447ea6a6a49ef99792ed85f2bae90ca8d819ee1ed305c3898145cd7a8" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/VeloxChem/VeloxChem/archive/{{ version }}.tar.gz  
-  #sha256: {{ sha256 }}
+  sha256: {{ sha256 }}
   #patches:
   #  - patches/geometric-as-posix.patch
   #  - patches/xtb-check.patch  # [build_platform != target_platform]
@@ -20,16 +20,16 @@ build:
 
 requirements:
   build:
-    #- python  # [build_platform != target_platform]
-    #- cross-python_{{ target_platform }}  # [build_platform != target_platform]
-    #- numpy  # [build_platform != target_platform]
-    #- pybind11  # [build_platform != target_platform]
+    - python  # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - numpy  # [build_platform != target_platform]
+    - pybind11  # [build_platform != target_platform]
     - cmake >=3.18
-    - {{ compiler('cxx') }}
-    #- {{ stdlib('c') }}
+    - {{ compiler("cxx") }}
+    - {{ stdlib("c") }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx or win]    
-    - vs2022_win-64  # [win]
+    #- vs2022_win-64  # [win]
     - ninja
   host:
     - pybind11
@@ -64,7 +64,8 @@ test:
     - rdkit
     - pymbar
     - mdanalysis
-    - m2w64-binutils  # [win]   # provides objdump.exe
+  source_files:
+    - tests/    
   imports:
     - veloxchem
   commands:
@@ -82,19 +83,19 @@ test:
     # run integration tests on unix-like systems
     # for now we only run selected tests on osx-64 and osx-arm64 due to time and resources
     - export OMP_NUM_THREADS=$CPU_COUNT  # [unix]
-    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [linux]
-    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [osx and arm64]
-    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming and not solvers"  # [osx and x86_64]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO -m "not timeconsuming"  # [linux]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO -m "not timeconsuming"  # [osx and arm64]
+    - mpiexec -n 1 $PYTHON -m pytest --capture=no --log-cli-level=INFO -m "not timeconsuming and not solvers"  # [osx and x86_64]
     - export MPI_NUM_PROCS=2  # [unix]
     - export OMP_NUM_THREADS=$(($CPU_COUNT/$MPI_NUM_PROCS))  # [unix]
-    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [linux]
-    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO -m solvers  # [linux]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest --capture=no --log-cli-level=INFO -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
     # run integration tests on windows
     - set OMP_NUM_THREADS=%CPU_COUNT%  # [win]
-    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m "not timeconsuming"  # [win]
+    - mpiexec -n 1 %PYTHON% -m pytest --capture=no --log-cli-level=INFO -m "not timeconsuming"  # [win]
     - set MPI_NUM_PROCS=2  # [win]
     - set /A OMP_NUM_THREADS="%CPU_COUNT%/%MPI_NUM_PROCS%"  # [win]
-    - mpiexec -n %MPI_NUM_PROCS% %PYTHON% -m pytest --capture=no --log-cli-level=INFO --pyargs veloxchem -m solvers  # [win]
+    - mpiexec -n %MPI_NUM_PROCS% %PYTHON% -m pytest --capture=no --log-cli-level=INFO -m solvers  # [win]
 
 about:
   home: https://veloxchem.org
