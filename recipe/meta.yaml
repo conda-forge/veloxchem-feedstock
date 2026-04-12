@@ -62,6 +62,7 @@ test:
     - rdkit
     - pymbar
     - mdanalysis
+    - binutils  # [win]
   source_files:
     - tests/    
   imports:
