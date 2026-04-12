@@ -81,8 +81,8 @@ test:
     - mpiexec -n 1 $PYTHON -m pytest -ra --capture=no --log-cli-level=INFO -m "not timeconsuming and not solvers"  # [osx and x86_64]
     - export MPI_NUM_PROCS=2  # [unix]
     - export OMP_NUM_THREADS=$(($CPU_COUNT/$MPI_NUM_PROCS))  # [unix]
-    - mpiexec -n $MPI_NUM_PROCS $PYTHON -ra -m pytest --capture=no --log-cli-level=INFO -m solvers  # [linux]
-    - mpiexec -n $MPI_NUM_PROCS $PYTHON -ra -m pytest --capture=no --log-cli-level=INFO -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest -ra --capture=no --log-cli-level=INFO -m solvers  # [linux]
+    - mpiexec -n $MPI_NUM_PROCS $PYTHON -m pytest -ra --capture=no --log-cli-level=INFO -m solvers -k "TestScf or TestGrad or TestRI or TestCPP or TestRPA"  # [osx and arm64]
     # run integration tests on windows
     - set OMP_NUM_THREADS=%CPU_COUNT%  # [win]
     - mpiexec -n 1 %PYTHON% -m pytest -ra --capture=no --log-cli-level=INFO -m "not timeconsuming"  # [win]
