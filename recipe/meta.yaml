@@ -45,7 +45,7 @@ requirements:
     - numpy
   run_constrained:
     # NOTE newer builds of xtb fail the tests
-    - xtb =6.7.1=*_3  # [win]
+    - xtb 6.7.1 *_3  # [win]
 
 test:
   requires:
