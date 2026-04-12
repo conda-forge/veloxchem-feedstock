@@ -9,7 +9,7 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz  
+  url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
@@ -35,8 +35,7 @@ requirements:
     - pybind11-abi =4
     - eigen
     - libboost-headers
-    - libxc-c >=7.0.0  # [unix]
-    - libxc-c 7.0.0 *_3  # [win]
+    - libxc-c >=7.0.0
   run:
     - psutil
     - geometric
@@ -44,16 +43,12 @@ requirements:
     - python
     - mpi4py
     - numpy
-  run_constrained:
-    - xtb 6.7.1 *_3  # [win]
 
 test:
   requires:
     - pytest
-    - libblas
     - dftd4-python
     - xtb-python
-    - xtb 6.7.1 *_3  # [win]
     - pip
     - scipy
     - openmm
@@ -63,7 +58,7 @@ test:
     - mdanalysis
     - binutils  # [win]
   source_files:
-    - tests/    
+    - tests/
   imports:
     - veloxchem
   commands:
