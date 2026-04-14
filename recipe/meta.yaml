@@ -6,14 +6,14 @@
 
 package:
   name: {{ name|lower }}
-  version: "{{ version }}{{ pre }}"
+  version: "{{ version }}"
 
 source:
   url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 3
+  number: 9
   entry_points:
     - vlx=veloxchem.main:main
 
