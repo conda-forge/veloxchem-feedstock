@@ -1,19 +1,19 @@
 {% set name = "veloxchem" %}
-{% set gitsha = "48cdb961adfe8a0789487b6a3ae766fa6a8c62be" %}
-{% set sha256 = "dc2a720d5de4f963bca5ef57f542b60ba1d2a54e84f2b0f5f52edbd1701ef8be" %}
+{% set gitsha = "8513267a275d8f3feca17e9d24741ceeaedaa6b6" %}
+{% set sha256 = "8c59d7acdb429d873ccaeab07d138a1d28be32c9f94e948cfbe19f4e9474db54" %}
 {% set version = "1.0" %}
 {% set pre = "rc4" %}
 
 package:
   name: {{ name|lower }}
-  version: "{{ version }}"
+  version: "{{ version }}{{ pre }}"
 
 source:
   url: https://github.com/VeloxChem/VeloxChem/archive/{{ gitsha }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 3
   entry_points:
     - vlx=veloxchem.main:main
 
