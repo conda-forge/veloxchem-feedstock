@@ -13,7 +13,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 2
   entry_points:
     - vlx=veloxchem.main:main
 
@@ -33,6 +33,7 @@ requirements:
     - pybind11
     - python
     - pybind11-abi =4
+    - numpy
     - eigen
     - libboost-headers
     - libxc-c >=7.0.0
@@ -42,8 +43,10 @@ requirements:
     - h5py
     - python
     - mpi4py
-    - numpy
+    - numpy >=2
   run_constrained:
+    # NOTE gets past a TypeError when setting verbosity
+    - xtb >=6.7  # [(linux or (osx and x86_64)) and py==310]
     # NOTE newer builds of xtb fail the tests
     - xtb 6.7.1 *_3  # [win]
 
