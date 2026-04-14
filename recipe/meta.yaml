@@ -45,6 +45,8 @@ requirements:
     - mpi4py
     - numpy >=2
   run_constrained:
+    # NOTE gets past a TypeError when setting verbosity
+    - xtb >=6.7  # [(linux or (osx and x86_64)) and py==310]
     # NOTE newer builds of xtb fail the tests
     - xtb 6.7.1 *_3  # [win]
 
