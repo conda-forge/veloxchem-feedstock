@@ -13,7 +13,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 9
+  number: 10
   entry_points:
     - vlx=veloxchem.main:main
 
